@@ -58,8 +58,6 @@ include "valida_cookie.inc";
         $comandoSQL = "SELECT descricao,tipo,data,valor FROM receitas_despesas ";
         $comandoSQL .= "WHERE usuario = '$usuario' and data >= '$data' and data <= '$data2' order by data, descricao";
         $res = $con->query($comandoSQL);
-//$res = mysqli_query($con, $comandoSQL);
-//$linhas = $res->;
         if (!$res) {
             echo "Não há receitas e despesas no período escolhido!";
             exit;
@@ -318,6 +316,6 @@ include "valida_cookie.inc";
                 </table>
             </center>
         </div>
-       <p align="center"><a href="principal.php" class="btn btn-success">Voltar</a></p>
+        <p align="center"><a href="principal.php" class="btn btn-success">Voltar</a></p>
     </body>
 </html>

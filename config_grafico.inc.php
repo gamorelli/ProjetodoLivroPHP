@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 // configurações do gráfico
 $largura = 600;
 $altura = 400;
@@ -8,7 +9,7 @@ $centroy = 200;
 $diametro = 280;
 $angulo = 0;
 // configurações da legenda
-$exibir_legenda ="sim";
+$exibir_legenda = "sim";
 $fonte = 3;
 $largura_fonte = 10;
 $espaco_entre_linhas = 10;

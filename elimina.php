@@ -9,14 +9,13 @@
         $id = $_GET['id'];
         // conecta ao vanco de dados e exclui o registro
         include "conecta_banco.inc";
-         $comandoSQL = "delete from receitas_despesas where usuario='$usuario' and id='$id'";
+        $comandoSQL = "delete from receitas_despesas where usuario='$usuario' and id='$id'";
         $res = $con->query($comandoSQL);
-       // $res = mysql_query($con, "delete from receitas_despesas where usuario='$usuario' and id='$id'");
         $con->close();
         ?>
         <br>
         <div class="alert alert-success" role="alert">
-        <p align="center">Exclusão Realizada!</p>
+            <p align="center">Exclusão Realizada!</p>
         </div>
         <br>
         <p align="center"><a href="excluir.php" class="btn btn-success">Excluir Outra</a></p>  

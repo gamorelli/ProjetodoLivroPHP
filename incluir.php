@@ -1,16 +1,16 @@
 <?php
+include_once 'montapagina.php';
 $usuario = $_COOKIE["usuario"];
 $tipo = $_GET["tipo"];
-if ($tipo == "RF")
+if ($tipo == "RF") {
     $titulo = "RECEITAS FIXAS";
-elseif ($tipo == "RV")
+} elseif ($tipo == "RV") {
     $titulo = "RECEITAS VARIÁVEIS";
-elseif ($tipo == "DF")
+} elseif ($tipo == "DF") {
     $titulo = "DESPESAS FIXAS";
-elseif ($tipo == "DV")
+} elseif ($tipo == "DV") {
     $titulo = "DESPESAS VARIÁVEIS";
-
-include_once 'montapagina.php';
+}
 ?>
 
 <script language="javascript">
@@ -36,27 +36,32 @@ include_once 'montapagina.php';
 <p align="center">Inclusão de <b><?php echo $titulo; ?></b>:</p>        
 <br>
 <hr>
-<form method="POST" action="gravar.php" name="formulario"
-      onSubmit="return valida_dados(this)">
+<form method="POST" action="gravar.php" name="formulario" onSubmit="return valida_dados(this)">
     <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" checked>
     <p align="center">
         Descrição:
         <input type="radio" name="descricao" value="nova" checked>
         Nova:</font> <input type="text" name="descricao_nova" size="20" onkeydown="javascript:formulario.descricao[0].checked = true">
         <input type="radio" value="existente" name="descricao"> <font color="#FFFFFF">Existente: </font>
-        <select size="1" name="descricao_existente"
-                onChange="javascript:formulario.descricao[1].checked = true">
-                    <?php
-                    //monta a lista das descrições já existentes para esse tipo 
-                    include "conecta_banco.inc";
-                    $res = mysqli_query($con, "SELECT distinct(descricao) FROM receitas_despesas WHERE usuario='usuario' and tipo='$tipo' order by descricao");
-                    $linhas = $res->rows;
-                    for ($i = 0; $i < $linhas; $i++) {
-                        $descricao = $res->data[$i][0];
-                        echo "<option value=\"$descricao\">$descricao<\option>";
-                    }
-                    $con->close();
-                    ?>
+        <select size="1" name="descricao" onChange="javascript:formulario.descricao[1].checked = true">
+            <?php
+            //monta a lista das descrições já existentes para esse tipo 
+            include "conecta_banco.inc";
+            $comandoSQL = "SELECT distinct(descricao) FROM receitas_despesas WHERE usuario='padrao' and tipo='$tipo' order by descricao";
+            $res = $con->query($comandoSQL);
+            if (!$res) {
+                echo "-";
+                exit;
+            } else {
+                while ($linha = $res->fetch_object()) {
+                    $descricao = $linha->descricao;
+                    echo "<option value=\"$descricao\">$descricao</option>";
+                }
+            }
+
+            $con->close();
+            ?>
+
         </select>
     </p>
     <p align="center"><font color="#FFFFFF">Mês:</font> <select size="1" name="mes">
@@ -74,8 +79,7 @@ include_once 'montapagina.php';
             <option value="12">Dez</option>
         </select>
         <font color="#FFFFFF">
-        Ano:</font> <input type="text" name="ano" size="4" maxlength="4"
-                           value="<?php echo date("Y", time()); ?>">
+        Ano:</font> <input type="text" name="ano" size="4" maxlength="4" value="<?php echo date("Y", time()); ?>">
     </p>
     <p align="center"><font color="#FFFFFF">Valor: </font> <input type="text" name="valor" size="10" maxlength="10"></p>         
     <br>
@@ -84,5 +88,3 @@ include_once 'montapagina.php';
 <hr> 
 <br>
 <br>
-</body>
-</html>

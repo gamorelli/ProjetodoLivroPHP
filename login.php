@@ -1,14 +1,11 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <?php
-
 // obtem oa valores digitados
-
 $usuario = $_POST["usuario"];
 $senha = $_POST["senha"];
 
 //acesso ao banco de dados
-
 include "conecta_banco.inc";
 global $con;
 $res = mysqli_query($con, "SELECT * FROM usuarios_autorizados where usuario='$usuario' and senha='$senha'") or die(mysqli_error($con));
